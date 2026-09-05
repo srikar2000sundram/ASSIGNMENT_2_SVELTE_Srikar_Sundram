@@ -64,6 +64,15 @@
   color: var(--ruik-color-border, #e8dfd0);
 }
 
+/*
+ * Tinted to match the same "category" concept's color on the detail page
+ * (recipe-ui-rating-badge's info variant) instead of a plain neutral chip.
+ * Deliberately not accent-green: this card also renders users' own
+ * recipes with an arbitrary, unrestricted category (docs/assumptions.md),
+ * so a green "looks vegetarian" tint would misrepresent one that isn't —
+ * teal reads as "this is the category," true regardless of content.
+ * Opaque enough (not a light tint) to stay legible over any photo.
+ */
 .card__category {
   position: absolute;
   top: 10px;
@@ -74,8 +83,8 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
-  background: color-mix(in srgb, var(--ruik-color-surface, #fff) 82%, transparent);
-  color: var(--ruik-color-text, #241c14);
+  background: color-mix(in srgb, var(--ruik-color-info, #1f4e66) 85%, transparent);
+  color: #fff;
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
 }

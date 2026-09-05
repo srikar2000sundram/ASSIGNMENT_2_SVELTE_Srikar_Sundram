@@ -15,17 +15,30 @@
   height: 100%;
   background: var(--ruik-color-surface, #ffffff);
   transition:
-    box-shadow 0.15s ease,
-    transform 0.15s ease;
+    box-shadow 0.2s cubic-bezier(0.2, 0.7, 0.3, 1),
+    transform 0.2s cubic-bezier(0.2, 0.7, 0.3, 1);
 }
 
 .slot--filled {
   box-shadow: var(--ruik-shadow-sm, 0 1px 2px rgba(36, 24, 12, 0.06));
 }
 
-.slot--filled:hover {
-  box-shadow: var(--ruik-shadow-md, 0 10px 24px -8px rgba(36, 24, 12, 0.16));
-  transform: translateY(-2px);
+/*
+ * A carousel card should feel like it's coming forward to meet you, not
+ * just nudging up 2px — scale plus lift, eased the same way the modal's
+ * entrance is, plus a touch of brightness on the photo itself.
+ * :focus-within mirrors :hover so keyboard users (Tab onto the Change or
+ * remove button) get the same feedback.
+ */
+.slot--filled:hover,
+.slot--filled:focus-within {
+  box-shadow: var(--ruik-shadow-lg, 0 24px 60px -16px rgba(36, 24, 12, 0.28));
+  transform: translateY(-6px) scale(1.045);
+}
+
+.slot--filled:hover .slot__thumb img,
+.slot--filled:focus-within .slot__thumb img {
+  filter: brightness(1.05);
 }
 
 .slot__day {
@@ -57,10 +70,19 @@
     background 0.15s ease;
 }
 
-.slot__empty:hover {
+.slot__empty:hover,
+.slot__empty:focus-visible {
   border-color: var(--ruik-color-primary, #c2410c);
   color: var(--ruik-color-primary, #c2410c);
   background: color-mix(in srgb, var(--ruik-color-primary, #c2410c) 6%, transparent);
+}
+
+/* A subtler version of the filled-card lift, so an empty day feels like
+   part of the same dynamic carousel rather than a static placeholder. */
+.slot:has(.slot__empty:hover),
+.slot:has(.slot__empty:focus-visible) {
+  box-shadow: var(--ruik-shadow-md, 0 10px 24px -8px rgba(36, 24, 12, 0.16));
+  transform: translateY(-4px) scale(1.02);
 }
 
 .slot__filled {
@@ -148,6 +170,7 @@
   border-radius: var(--ruik-radius-sm, 8px);
   object-fit: cover;
   background: var(--ruik-color-surface-alt, #f4ede2);
+  transition: filter 0.2s ease;
 }
 
 .slot__title {

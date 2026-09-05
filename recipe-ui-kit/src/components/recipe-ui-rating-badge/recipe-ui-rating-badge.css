@@ -26,11 +26,18 @@
 }
 
 .badge--warning {
-  background: color-mix(in srgb, #b5650a 14%, transparent);
-  color: #b5650a;
+  background: color-mix(in srgb, var(--ruik-color-warning, #b5650a) 14%, transparent);
+  color: var(--ruik-color-warning, #b5650a);
 }
 
+/*
+ * A dedicated --ruik-color-info token, not a primary tint: this badge is
+ * how a recipe's category is shown, and reusing the primary button color
+ * here made every card and detail page read as one monochrome hue. A
+ * distinct teal keeps it recognizably "informational" rather than
+ * "primary action."
+ */
 .badge--info {
-  background: color-mix(in srgb, var(--ruik-color-primary, #c2410c) 12%, transparent);
-  color: var(--ruik-color-primary, #c2410c);
+  background: color-mix(in srgb, var(--ruik-color-info, #1f4e66) 14%, transparent);
+  color: var(--ruik-color-info, #1f4e66);
 }

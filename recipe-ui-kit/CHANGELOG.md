@@ -41,6 +41,22 @@ _Nothing yet._
   dark circular overlay, matching the "Change" hover overlay it already
   sits alongside. Purely a styling change: the `day`/`dayLabel`/`recipe`
   props and `assign`/`remove` events are unchanged, so this stays a patch.
+- **`recipe-ui-meal-slot`: hovering (or focusing) a filled or empty card
+  now lifts and scales it up**, with a brightened thumbnail on filled
+  cards — a carousel card should feel like it's coming forward to meet
+  you, not just nudging 2px. `:focus-within`/`:focus-visible` mirror
+  `:hover` so keyboard users get the same feedback.
+- **`recipe-ui-rating-badge`: the `info` variant is a new dedicated teal
+  token (`--ruik-color-info`), not a tint of the primary color** — it's
+  used for a recipe's category, and reusing the primary button's color
+  there made every card and detail page read as one hue. `warning` now
+  points at a real token (`--ruik-color-warning`) instead of a hardcoded
+  hex, and is used for the cuisine/area badge, so category and area read
+  as two distinct, intentional colors.
+- **`recipe-ui-card`: the category pill is now tinted** (the same teal as
+  the badge above, not accent-green — this card also shows a user's own,
+  unrestricted-category recipes, and green would have misleadingly read
+  as "vegetarian" on one that isn't) instead of a plain neutral chip.
 
 ## [0.2.0] — 2026-09-04
 
