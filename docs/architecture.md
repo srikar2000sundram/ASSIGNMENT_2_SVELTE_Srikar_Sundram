@@ -128,17 +128,40 @@ ASSIGNMENT_2/
 
 | Route | Requirement served | Rendering | Stencil components used |
 |---|---|---|---|
-| `/` | Recipe Discovery | prerendered shell | `search-bar`, `filter-chip-group` ×2, `card`, `modal-dialog` |
+| `/` | Recipe Discovery | client (fallback) | `search-bar`, `filter-chip-group` ×2, `card`, `modal-dialog` |
 | `/recipes/[id]` | Recipe Details | client (fallback) | `rating-badge`, `modal-dialog` |
-| `/recipes/new` | Recipe Management — add | prerendered shell | `form` |
+| `/recipes/new` | Recipe Management — add | client (fallback) | `form` |
 | `/recipes/[id]/edit` | Recipe Management — edit | client (fallback) | `form` |
 | `/favorites` | Favorites | prerendered shell | `card` |
-| `/meal-plan` | Weekly Meal Planner | prerendered shell | `meal-slot` ×7, `modal-dialog`, `card` |
+| `/meal-plan` | Weekly Meal Planner | client (fallback) | `meal-slot` ×7, `modal-dialog`, `card` |
 
 `/recipes/[id]` and its `edit` child opt out of prerendering (`+page.ts`)
 because recipe ids come from TheMealDB or the user's own storage and cannot
-be enumerated at build time. They are served by the static adapter's
-`200.html` fallback and rendered on the client.
+be enumerated at build time.
+
+`/`, `/recipes/new`, and `/meal-plan` opt out (also `+page.ts`) for a
+different reason: each passes an **array or object** prop — `options`/
+`selected` (`filter-chip-group`), `errors` (`form`), `recipe`
+(`meal-slot`) — to a Stencil custom element. `customElements` doesn't
+exist during SSR, so Svelte's prerendered HTML output for a non-string
+prop is a stringified attribute (`"[object Object],[object Object],..."`).
+When the real element later registers in the browser, its native
+*upgrade* reaction reads that stringified attribute as the prop's initial
+value and throws inside `render()` — and Stencil does not retry
+rendering after that throw, so the component stays permanently empty,
+even though Svelte's own hydration effect goes on to set the correct
+value moments later. `/favorites` is unaffected (`card`'s props are all
+strings/booleans, which round-trip through an HTML attribute correctly)
+and stays prerendered.
+
+All four non-prerendered routes are served by the static adapter's
+`200.html` fallback and rendered entirely on the client — never hydrated
+from server-rendered markup — which sidesteps the bug outright rather
+than working around it. The root `+layout.ts`'s `load()` awaits every
+`recipe-ui-kit` custom-element registration before SvelteKit hydrates or
+mounts anything under it, so by the time any of these pages creates an
+element, the class is already registered and property assignment goes
+through the real, reactive setter from the start.
 
 ---
 

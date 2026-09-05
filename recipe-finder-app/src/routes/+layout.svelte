@@ -1,33 +1,13 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { page } from '$app/state';
 	import { resolve } from '$app/paths';
 	import favicon from '$lib/assets/favicon.svg';
 	import '../app.css';
 
+	// recipe-ui-kit custom-element registration happens in +layout.ts's
+	// load(), not here — see the comment there for why it can't be an
+	// onMount().
 	let { children } = $props();
-
-	// Registers every recipe-ui-kit custom element once, globally, so any
-	// route can use the tags directly. Loaded from the *published* package's
-	// dist-custom-elements build (one self-registering module per component),
-	// NOT the lazy loader: the loader fetches a shared component bundle via
-	// a runtime-computed path that Vite's production bundler cannot
-	// statically analyze, so that file never gets copied into the build
-	// output and every custom element silently fails to render. Each import
-	// below is a literal string, which Vite can bundle correctly, and
-	// importing it is enough — Stencil's `auto-define-custom-elements`
-	// behavior calls `customElements.define()` as a side effect.
-	onMount(async () => {
-		await Promise.all([
-			import('@srikar_sundram/recipe-ui-kit/recipe-ui-card'),
-			import('@srikar_sundram/recipe-ui-kit/recipe-ui-search-bar'),
-			import('@srikar_sundram/recipe-ui-kit/recipe-ui-filter-chip-group'),
-			import('@srikar_sundram/recipe-ui-kit/recipe-ui-rating-badge'),
-			import('@srikar_sundram/recipe-ui-kit/recipe-ui-form'),
-			import('@srikar_sundram/recipe-ui-kit/recipe-ui-meal-slot'),
-			import('@srikar_sundram/recipe-ui-kit/recipe-ui-modal-dialog')
-		]);
-	});
 
 	const navLinks = [
 		{ href: '/', label: 'Discover' },
