@@ -26,12 +26,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/srikar2000sundram/assignment_2_NAGP.git",
+    "url": "git+https://github.com/srikar2000sundram/ASSIGNMENT_2_SVELTE_Srikar_Sundram.git",
     "directory": "recipe-ui-kit"
   },
-  "homepage": "https://github.com/srikar2000sundram/assignment_2_NAGP/blob/main/recipe-ui-kit/readme.md",
+  "homepage": "https://github.com/srikar2000sundram/ASSIGNMENT_2_SVELTE_Srikar_Sundram/blob/main/recipe-ui-kit/readme.md",
   "bugs": {
-    "url": "https://github.com/srikar2000sundram/assignment_2_NAGP/issues"
+    "url": "https://github.com/srikar2000sundram/ASSIGNMENT_2_SVELTE_Srikar_Sundram/issues"
   },
   "keywords": [
     "stencil",

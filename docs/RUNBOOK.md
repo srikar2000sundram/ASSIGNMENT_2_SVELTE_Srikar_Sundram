@@ -9,14 +9,16 @@ before the repo was pushed and deployed), and as the reference for cutting
 a future release — see *Releasing a later version of the library* at the
 end.
 
-## Before you start — one value to fill in
+## One thing worth knowing if you fork this
 
-`recipe-ui-kit/package.json` has `<YOUR-GITHUB-USERNAME>` in three places
-(`repository.url`, `homepage`, `bugs.url`). Replace it:
+`recipe-ui-kit/package.json`'s `repository.url`, `homepage`, and `bugs.url`
+point at `github.com/srikar2000sundram/ASSIGNMENT_2_SVELTE_Srikar_Sundram`.
+If you're reusing this project under your own account, those three need
+your username instead:
 
 ```sh
 cd recipe-ui-kit
-sed -i 's/<YOUR-GITHUB-USERNAME>/your-actual-username/g' package.json
+sed -i 's/srikar2000sundram\/ASSIGNMENT_2_SVELTE_Srikar_Sundram/<you>\/<your-repo>/g' package.json
 ```
 
 ---
@@ -75,7 +77,7 @@ cd recipe-ui-kit && rm -rf .git       # drop its independent history
 cd ..                                  # ASSIGNMENT_2/
 git add -A
 git commit -m "Bring the component library into this repository"
-git remote add origin https://github.com/<you>/<your-repo>.git
+git remote add origin https://github.com/srikar2000sundram/ASSIGNMENT_2_SVELTE_Srikar_Sundram.git
 git push -u origin main
 ```
 
@@ -154,7 +156,7 @@ in / flipped to ✅:
 | Deliverable | Value |
 |---|---|
 | npm package link | `https://www.npmjs.com/package/@srikar_sundram/recipe-ui-kit` |
-| GitHub repository | `https://github.com/<you>/<your-repo>` |
+| GitHub repository | `https://github.com/srikar2000sundram/ASSIGNMENT_2_SVELTE_Srikar_Sundram` |
 | Deployed application URL | the Vercel URL |
 
 ## Releasing a later version of the library

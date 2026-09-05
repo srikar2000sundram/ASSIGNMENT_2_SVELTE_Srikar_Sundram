@@ -93,8 +93,8 @@ credentialed command — see [RUNBOOK.md](./RUNBOOK.md))
 | README with assumptions made | ✅ | [`../README.md#assumptions-made`](../README.md#assumptions-made) |
 | Starting the development server | ✅ | [getting-started.md#step-3--run-it](./getting-started.md#step-3--run-it) |
 | npm package link | ✅ | [https://www.npmjs.com/package/@srikar_sundram/recipe-ui-kit](https://www.npmjs.com/package/@srikar_sundram/recipe-ui-kit) |
-| GitHub repository link(s) | ✅ | [https://github.com/srikar2000sundram/assignment_2_NAGP](https://github.com/srikar2000sundram/assignment_2_NAGP) — one repository, per [assumptions.md](./assumptions.md#tooling) |
-| Deployed application URL | ✅ | [https://assignment-2-nagp.vercel.app](https://assignment-2-nagp.vercel.app) — static build on Vercel, verified: home page, all prerendered routes, and a direct hit on the client-rendered `/recipes/[id]` fallback all return 200 |
+| GitHub repository link(s) | ✅ | [https://github.com/srikar2000sundram/ASSIGNMENT_2_SVELTE_Srikar_Sundram](https://github.com/srikar2000sundram/ASSIGNMENT_2_SVELTE_Srikar_Sundram) — one repository, per [assumptions.md](./assumptions.md#tooling) |
+| Deployed application URL | ✅ | [https://assignment-2-svelte-srikar-sundram.vercel.app](https://assignment-2-svelte-srikar-sundram.vercel.app) — static build on Vercel, verified: home page, all prerendered routes, and a direct hit on the client-rendered `/recipes/[id]` fallback all return 200 |
 
 ## Quality gates (not required by the PDF, held anyway)
 

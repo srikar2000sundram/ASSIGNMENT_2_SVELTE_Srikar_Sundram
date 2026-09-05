@@ -17,8 +17,8 @@ Assignment brief: [`Recipe_Finder_Meal_Planner_Assignment_v2.pdf`](Recipe_Finder
 | | |
 |---|---|
 | npm package — `@srikar_sundram/recipe-ui-kit` | ✅ [https://www.npmjs.com/package/@srikar_sundram/recipe-ui-kit](https://www.npmjs.com/package/@srikar_sundram/recipe-ui-kit) |
-| GitHub repository (both projects) | ✅ [https://github.com/srikar2000sundram/assignment_2_NAGP](https://github.com/srikar2000sundram/assignment_2_NAGP) |
-| Deployed application URL | ✅ [https://assignment-2-nagp.vercel.app](https://assignment-2-nagp.vercel.app) |
+| GitHub repository (both projects) | ✅ [https://github.com/srikar2000sundram/ASSIGNMENT_2_SVELTE_Srikar_Sundram](https://github.com/srikar2000sundram/ASSIGNMENT_2_SVELTE_Srikar_Sundram) |
+| Deployed application URL | ✅ [https://assignment-2-svelte-srikar-sundram.vercel.app](https://assignment-2-svelte-srikar-sundram.vercel.app) |
 
 All three are live.
 
