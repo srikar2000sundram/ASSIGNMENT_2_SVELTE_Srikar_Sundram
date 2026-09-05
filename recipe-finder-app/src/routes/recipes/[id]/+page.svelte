@@ -128,7 +128,7 @@
 						<recipe-ui-rating-badge label={recipe.category} variant="info"></recipe-ui-rating-badge>
 					{/if}
 					{#if recipe.area}
-						<recipe-ui-rating-badge label={recipe.area} variant="neutral"></recipe-ui-rating-badge>
+						<recipe-ui-rating-badge label={recipe.area} variant="warning"></recipe-ui-rating-badge>
 					{/if}
 				</div>
 

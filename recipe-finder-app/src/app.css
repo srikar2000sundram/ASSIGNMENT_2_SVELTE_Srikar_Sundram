@@ -9,6 +9,10 @@
  * Palette: warm parchment, aged-bronze borders, and a deep maroon primary
  * with a candle-gold "on-primary" — a wizarding-storybook feel built
  * entirely out of color/type tokens, no copyrighted names or artwork.
+ * `--ruik-color-info` (teal) and `--ruik-color-warning` (amber) are
+ * deliberate departures from the maroon/gold/emerald base — used on badges
+ * so recipe metadata reads as distinct, intentional colors rather than
+ * everything sitting in the same warm family.
  * `--ruik-font-display` is new (Cinzel, an engraved-stone-style serif)
  * and is used for headings/the brand mark only; body copy stays on the
  * existing, more readable serif/sans pair.
@@ -24,6 +28,8 @@
 	--ruik-color-primary-hover: #500000;
 	--ruik-color-on-primary: #f8e9b0;
 	--ruik-color-accent: #1f5c38;
+	--ruik-color-info: #1f4e66;
+	--ruik-color-warning: #b5650a;
 	--ruik-color-danger: #b3261e;
 	--ruik-color-danger-hover: #8c1d17;
 	--ruik-color-focus: #c9971f;
@@ -57,6 +63,8 @@
 		--ruik-color-primary-hover: #cf3b3b;
 		--ruik-color-on-primary: #fbe9b8;
 		--ruik-color-accent: #4c9468;
+		--ruik-color-info: #5aa8c2;
+		--ruik-color-warning: #e0973a;
 		--ruik-color-danger: #f2867e;
 		--ruik-color-danger-hover: #f6a49e;
 		--ruik-color-focus: #d3a625;
@@ -322,7 +330,14 @@ img {
 	}
 }
 
-section + section {
+/*
+ * General-sibling, not adjacent-sibling: "Your Recipes" and "Browse" on `/`
+ * have a <recipe-ui-modal-dialog> (the delete confirmation, always in the
+ * DOM regardless of its `open` state) sitting between them, which broke
+ * `section + section` entirely and left Browse with no top margin at all.
+ * `~` matches regardless of what non-<section> elements sit in between.
+ */
+section ~ section {
 	margin-top: 44px;
 }
 
@@ -371,16 +386,30 @@ section + section {
 	overflow-x: auto;
 	scroll-snap-type: x mandatory;
 	scroll-padding-left: 4px;
-	padding: 4px 2px 14px;
+	/* Extra top/bottom room, not just cosmetic: overflow-x: auto here also
+	   computes overflow-y to auto (a value other than visible on either
+	   axis forces both), so a card's hover lift + scale needs headroom to
+	   avoid being clipped by this container. */
+	padding: 10px 4px 18px;
 	scrollbar-width: thin;
 	scrollbar-color: var(--ruik-color-border) transparent;
 }
 
 .carousel__item {
 	position: relative;
+	z-index: 1;
 	flex: 0 0 210px;
 	scroll-snap-align: start;
 	animation: carousel-item-in 0.4s ease both;
+}
+
+/* recipe-ui-meal-slot's own hover lifts and scales the card up; without
+   raising z-index too, a lifted earlier card would paint underneath the
+   next one (flex-row siblings paint in DOM order by default) instead of
+   cleanly overlapping it. */
+.carousel__item:hover,
+.carousel__item:focus-within {
+	z-index: 2;
 }
 
 /* .carousel__track's default align-items: stretch sizes .carousel__item to
