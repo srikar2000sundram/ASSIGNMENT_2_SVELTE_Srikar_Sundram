@@ -1,5 +1,3 @@
-<div align="center">
-
 # Recipe Finder & Meal Planner
 
 **Discover recipes, save favorites, and plan your week — vegetarian, start to finish.**
@@ -14,8 +12,6 @@ A Svelte 5 / SvelteKit application that consumes **[`@srikar_sundram/recipe-ui-k
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 **[Live app](https://assignment-2-svelte-srikar-sundram.vercel.app) · [npm package](https://www.npmjs.com/package/@srikar_sundram/recipe-ui-kit) · [Documentation](#documentation)**
-
-</div>
 
 ---
 
@@ -197,8 +193,6 @@ Assignment brief: [`Recipe_Finder_Meal_Planner_Assignment_v2.pdf`](Recipe_Finder
 
 MIT — see [LICENSE](LICENSE).
 
-<div align="center">
+---
 
-Built by [Srikar Sundram](https://github.com/srikar2000sundram)
-
-</div>
+Built by [Srikar Sundram](https://github.com/srikar2000sundram).
