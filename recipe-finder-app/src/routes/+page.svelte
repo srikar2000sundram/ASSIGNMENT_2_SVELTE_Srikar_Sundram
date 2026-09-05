@@ -28,6 +28,19 @@
 	let selectedAreas = $state<string[]>([]);
 	let selectedIngredients = $state<string[]>([]);
 	let cuisineOpen = $state(false);
+	let cuisineDetails = $state<HTMLDetailsElement | undefined>(undefined);
+
+	/**
+	 * The Cuisine panel can be tall enough, once open, to sit partway under
+	 * the sticky nav if the page happens to be scrolled — scroll it fully
+	 * into view (respecting .filter-collapsible's scroll-margin-top) so
+	 * opening it never leaves its top edge tucked behind the nav.
+	 */
+	function handleCuisineToggle() {
+		if (cuisineDetails?.open) {
+			cuisineDetails.scrollIntoView({ behavior: 'smooth', block: 'start' });
+		}
+	}
 	const areaOptions = VEG_FRIENDLY_AREAS;
 	const ingredientOptions = COMMON_INGREDIENTS;
 
@@ -176,7 +189,12 @@
 			onsearchChange={handleSearchChange}
 		></recipe-ui-search-bar>
 
-		<details class="filter-collapsible" bind:open={cuisineOpen}>
+		<details
+			class="filter-collapsible"
+			bind:open={cuisineOpen}
+			bind:this={cuisineDetails}
+			ontoggle={handleCuisineToggle}
+		>
 			<summary class="filter-collapsible__summary">
 				<span class="filter-axis__label">Cuisine</span>
 				{#if selectedAreas.length > 0}

@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { lookupRecipe } from '$lib/api/mealdb';
 	import { favorites } from '$lib/stores/favorites.svelte';
 	import { mealPlan } from '$lib/stores/mealPlan.svelte';
@@ -22,6 +23,31 @@
 			{} as Record<Weekday, MealSlotRecipe | null>
 		)
 	);
+
+	/**
+	 * The week renders as a horizontally scrolling carousel — seven
+	 * fixed-width cards add up to wider than the page's max content width,
+	 * so there's always something to scroll to on any screen size, not just
+	 * mobile. `Date.getDay()` is 0 (Sunday) to 6 (Saturday); WEEKDAYS starts
+	 * on Monday, so this re-indexes rather than assuming an order match.
+	 */
+	const JS_DAY_ORDER: Weekday[] = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'];
+	const todayWeekday = JS_DAY_ORDER[new Date().getDay()];
+
+	let carouselTrack = $state<HTMLDivElement | undefined>(undefined);
+	let canScrollPrev = $state(false);
+	let canScrollNext = $state(false);
+
+	function updateScrollButtons() {
+		const el = carouselTrack;
+		if (!el) return;
+		canScrollPrev = el.scrollLeft > 4;
+		canScrollNext = el.scrollLeft < el.scrollWidth - el.clientWidth - 4;
+	}
+
+	function scrollCarousel(direction: 1 | -1) {
+		carouselTrack?.scrollBy({ left: direction * 440, behavior: 'smooth' });
+	}
 
 	let pickerOpen = $state(false);
 	let activeDay = $state<Weekday | null>(null);
@@ -90,6 +116,12 @@
 		resolveSlots(mealPlan.slots);
 	});
 
+	onMount(() => {
+		updateScrollButtons();
+		window.addEventListener('resize', updateScrollButtons);
+		return () => window.removeEventListener('resize', updateScrollButtons);
+	});
+
 	function openPicker(day: Weekday) {
 		activeDay = day;
 		pickerOpen = true;
@@ -125,16 +157,63 @@
 	<p>Assign a recipe to each day from your favorites or your own recipes.</p>
 </div>
 
-<div class="meal-plan-grid">
-	{#each WEEKDAYS as day (day)}
-		<recipe-ui-meal-slot
-			{day}
-			dayLabel={WEEKDAY_LABELS[day]}
-			recipe={resolvedSlots[day]}
-			onassign={handleAssign}
-			onremove={handleRemove}
-		></recipe-ui-meal-slot>
-	{/each}
+<div class="carousel">
+	<button
+		type="button"
+		class="carousel__nav carousel__nav--prev"
+		onclick={() => scrollCarousel(-1)}
+		disabled={!canScrollPrev}
+		aria-label="Scroll to earlier days"
+	>
+		<svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+			<path
+				d="M15 6l-6 6 6 6"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+			/>
+		</svg>
+	</button>
+
+	<div class="carousel__track" bind:this={carouselTrack} onscroll={updateScrollButtons}>
+		{#each WEEKDAYS as day, i (day)}
+			<div
+				class="carousel__item"
+				class:carousel__item--today={day === todayWeekday}
+				style="animation-delay: {i * 60}ms"
+			>
+				{#if day === todayWeekday}
+					<span class="carousel__today-tag">Today</span>
+				{/if}
+				<recipe-ui-meal-slot
+					{day}
+					dayLabel={WEEKDAY_LABELS[day]}
+					recipe={resolvedSlots[day]}
+					onassign={handleAssign}
+					onremove={handleRemove}
+				></recipe-ui-meal-slot>
+			</div>
+		{/each}
+	</div>
+
+	<button
+		type="button"
+		class="carousel__nav carousel__nav--next"
+		onclick={() => scrollCarousel(1)}
+		disabled={!canScrollNext}
+		aria-label="Scroll to later days"
+	>
+		<svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+			<path
+				d="M9 6l6 6-6 6"
+				stroke="currentColor"
+				stroke-width="2"
+				stroke-linecap="round"
+				stroke-linejoin="round"
+			/>
+		</svg>
+	</button>
 </div>
 
 <recipe-ui-modal-dialog

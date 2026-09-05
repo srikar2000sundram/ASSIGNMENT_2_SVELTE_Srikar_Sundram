@@ -116,6 +116,14 @@ img {
 /* ---------------------------------------------------------------------
    Nav
    ------------------------------------------------------------------- */
+/*
+ * Fully opaque, not translucent: this page's sticky nav sits above real
+ * interactive controls (the Cuisine disclosure can open tall enough to
+ * scroll partway under it), and a semi-transparent + blurred background
+ * let whatever was underneath show through as a distracting "ghost" of
+ * text instead of being cleanly hidden. A solid bar plus its own shadow
+ * reads as "elevated above the page" without that artifact.
+ */
 .app-nav {
 	position: sticky;
 	top: 0;
@@ -125,9 +133,8 @@ img {
 	gap: 28px;
 	padding: 14px 24px;
 	border-bottom: 1px solid var(--ruik-color-border);
-	background: color-mix(in srgb, var(--ruik-color-surface) 88%, transparent);
-	backdrop-filter: blur(10px);
-	-webkit-backdrop-filter: blur(10px);
+	background: var(--ruik-color-surface);
+	box-shadow: var(--ruik-shadow-sm);
 }
 
 .app-nav__brand {
@@ -243,6 +250,10 @@ img {
 	border: 1px solid var(--ruik-color-border);
 	border-radius: var(--ruik-radius-md);
 	background: var(--ruik-color-surface);
+	/* Matches the sticky nav's own height with a little breathing room, so
+	   scrollIntoView() on open (see +page.svelte) stops fully clear of it
+	   instead of tucking the panel's top edge underneath. */
+	scroll-margin-top: 80px;
 }
 
 .filter-collapsible__summary {
@@ -341,10 +352,116 @@ section + section {
 	gap: 20px;
 }
 
-.meal-plan-grid {
-	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-	gap: 14px;
+/*
+ * The week as a horizontally scrolling, snap-aligned carousel rather than a
+ * grid: seven fixed-width cards add up to wider than the page's own max
+ * content width, so there's always something to scroll to, on any screen —
+ * not just a mobile fallback. Arrow buttons plus native touch/trackpad
+ * scrolling both work; scroll-snap keeps a card from stopping half-visible.
+ */
+.carousel {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.carousel__track {
+	display: flex;
+	gap: 16px;
+	overflow-x: auto;
+	scroll-snap-type: x mandatory;
+	scroll-padding-left: 4px;
+	padding: 4px 2px 14px;
+	scrollbar-width: thin;
+	scrollbar-color: var(--ruik-color-border) transparent;
+}
+
+.carousel__item {
+	position: relative;
+	flex: 0 0 210px;
+	scroll-snap-align: start;
+	animation: carousel-item-in 0.4s ease both;
+}
+
+/* .carousel__track's default align-items: stretch sizes .carousel__item to
+   the row's tallest card, but that doesn't cascade past a block child on
+   its own — recipe-ui-meal-slot needs telling to fill it, the same way
+   its own .slot fills *that* (recipe-ui-meal-slot.css), so a filled and an
+   empty day end up the same height instead of the empty one hugging its
+   own shorter content. */
+.carousel__item recipe-ui-meal-slot {
+	height: 100%;
+}
+
+@keyframes carousel-item-in {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.carousel__item {
+		animation: none;
+	}
+}
+
+/* A small enchanted glow around whichever day is today, so the week reads
+   at a glance instead of requiring you to count in from Monday. */
+.carousel__item--today recipe-ui-meal-slot {
+	display: block;
+	border-radius: var(--ruik-radius-md);
+	box-shadow: 0 0 0 2px var(--ruik-color-focus);
+}
+
+.carousel__today-tag {
+	position: absolute;
+	top: -9px;
+	left: 14px;
+	z-index: 1;
+	padding: 1px 8px;
+	border-radius: var(--ruik-radius-pill);
+	background: var(--ruik-color-focus);
+	color: var(--ruik-color-bg);
+	font-size: 10px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+}
+
+.carousel__nav {
+	flex-shrink: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 36px;
+	height: 36px;
+	border-radius: var(--ruik-radius-pill);
+	border: 1px solid var(--ruik-color-border);
+	background: var(--ruik-color-surface);
+	color: var(--ruik-color-text);
+	box-shadow: var(--ruik-shadow-sm);
+	cursor: pointer;
+	transition:
+		background 0.15s ease,
+		color 0.15s ease,
+		border-color 0.15s ease,
+		opacity 0.15s ease;
+}
+
+.carousel__nav:hover:not(:disabled) {
+	background: var(--ruik-color-primary);
+	border-color: var(--ruik-color-primary);
+	color: var(--ruik-color-on-primary);
+}
+
+.carousel__nav:disabled {
+	opacity: 0.35;
+	cursor: default;
 }
 
 /* ---------------------------------------------------------------------
