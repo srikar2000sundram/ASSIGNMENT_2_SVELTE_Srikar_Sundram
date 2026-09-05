@@ -27,12 +27,15 @@
 	);
 
 	/**
-	 * Discovery and Add Recipe both already exclude non-vegetarian recipes
-	 * (ADR-014), but this page is reachable by a direct URL to any TheMealDB
-	 * id — including one discovery would never have surfaced — so favoriting
-	 * and planning are gated here too rather than assumed safe.
+	 * The vegetarian-only restriction applies to TheMealDB content only —
+	 * recipes you create yourself are never checked. This page is reachable
+	 * by a direct URL to any TheMealDB id, including one discovery would
+	 * never have surfaced, so an API recipe's category is checked here
+	 * rather than assumed safe just because it rendered.
 	 */
-	let isVegetarian = $derived(recipe ? isVegetarianCategory(recipe.category) : false);
+	let isVegetarian = $derived(
+		recipe ? recipe.source === 'user' || isVegetarianCategory(recipe.category) : false
+	);
 
 	async function load(id: string) {
 		const token = ++loadToken;

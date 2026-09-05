@@ -191,7 +191,7 @@ img {
 	font-size: 15px;
 }
 
-/* The always-on vegetarian/vegan restriction (ADR-014) is enforced whether
+/* Discovery's always-on vegetarian/vegan restriction is enforced whether
    or not it's visible, but calling it out explicitly avoids a silent
    surprise when e.g. a "Chicken" search comes back empty. */
 .diet-note {
@@ -641,8 +641,9 @@ section + section {
 	}
 }
 
-/* App-wide policy failure (ADR-014) — distinct from <recipe-ui-form>'s own
-   per-field errors, which live in its shadow DOM and can't be reused here. */
+/* A non-vegetarian TheMealDB recipe reached by direct URL — distinct from
+   <recipe-ui-form>'s own per-field errors, which live in its shadow DOM
+   and can't be reused here. Never shown for your own recipes. */
 .diet-error-banner {
 	margin: 0 0 16px;
 	padding: 10px 14px;

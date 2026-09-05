@@ -17,10 +17,11 @@
 	import type { FilterOption } from '@srikar_sundram/recipe-ui-kit';
 
 	/**
-	 * This app only ever shows vegetarian/vegan recipes — see
-	 * docs/decisions.md ADR-014. This axis is fetched and intersected on
-	 * every query unconditionally, not gated behind any user selection, so
-	 * it can never be "cleared" the way the other filter axes can.
+	 * Discovery only ever shows vegetarian/vegan TheMealDB recipes — this
+	 * axis is fetched and intersected on every query unconditionally, not
+	 * gated behind any user selection, so it can never be "cleared" the way
+	 * the other filter axes can. It has no bearing on your own recipes,
+	 * which never go through this axis at all.
 	 */
 	const VEGETARIAN_DIET_VALUES = ['Vegetarian', 'Vegan'];
 
@@ -72,7 +73,7 @@
 			const term = query.trim();
 
 			// The vegetarian/vegan axis is pushed unconditionally, on every
-			// query — this app never shows a non-vegetarian recipe (ADR-014).
+			// query — TheMealDB discovery never surfaces a non-vegetarian recipe.
 			// Every other axis is only fetched, and only handed to
 			// composeResults(), when the user has actually selected something:
 			// an omitted axis means "unconstrained", whereas an axis that is

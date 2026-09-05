@@ -21,7 +21,6 @@
  *    record wins — otherwise intersecting would strip the category badge off
  *    every card.
  *
- * See docs/decisions.md ADR-009.
  */
 import type { Recipe } from '$lib/types/recipe';
 

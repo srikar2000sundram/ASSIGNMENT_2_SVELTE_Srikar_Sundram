@@ -104,7 +104,7 @@ invisible because that project contained no test files.
 | `lib/validation/recipe.ts` | 23 | Every rule, at its boundaries |
 | `lib/search/compose.ts` | 21 | The whole search∩filter algebra |
 | `lib/stores/storage.ts` | 11 | SSR, corrupt data, hostile storage |
-| `lib/validation/diet.ts` | 6 | The single vegetarian/vegan definition, checked everywhere a recipe is shown |
+| `lib/validation/diet.ts` | 6 | The vegetarian/vegan definition applied to TheMealDB content — never to your own recipes |
 
 ### `client` project — 33 tests, real Chromium
 
@@ -120,7 +120,7 @@ invisible because that project contained no test files.
 | Edge case | Why it is in the suite |
 |---|---|
 | A category that only *contains* "vegetarian" as a substring (`"Vegetarian Sides"`) | Must be rejected — matching must be exact, not `includes()`, or a future TheMealDB category name could slip past the restriction unnoticed |
-| `null`, `undefined`, and whitespace-only category | All three must fail the vegetarian check; a user-created recipe with a blank category must not be silently treated as safe |
+| `null`, `undefined`, and whitespace-only category | All three must fail the vegetarian check, for an API recipe that somehow arrives with a blank category |
 | Empty search result **vs** no search at all | `[]` and `null` mean different things: a search matching nothing must show nothing, while no search shows the browse set. Conflating them was the single most likely bug in the new discovery logic. |
 | An active filter axis that matched nothing | Must empty the result. An *omitted* axis means "unconstrained" — the opposite. |
 | Summary and detail records for the same id | `filter.php` returns no category; `search.php` does. The detailed copy must win, or intersecting strips every card's badge. Both directions are asserted, including that detail is never downgraded. |
@@ -144,11 +144,11 @@ hand against [user-guide.md](./user-guide.md):
 | Route | Checks |
 |---|---|
 | `/` | Search updates after the debounce; chips toggle across both rows; vegetarian-only restriction never lifts; **search + filters intersect**; Clear all resets; card footer Edit/Delete **do not navigate**; skeletons appear while loading |
-| `/recipes/[id]` | Ingredients and instructions render; favorite toggles; **Add to meal plan** picker marks *This recipe* / *Replace*; Edit/Delete appear only for own recipes; a manually-visited non-vegetarian id shows the diet banner instead of Favorite/Plan buttons |
-| `/recipes/new` | Every validation row in the user guide, including the Category-must-be-vegetarian banner; typing survives a failed submit |
+| `/recipes/[id]` | Ingredients and instructions render; favorite toggles; **Add to meal plan** picker marks *This recipe* / *Replace*; Edit/Delete appear only for own recipes; a manually-visited non-vegetarian **API** id shows the diet banner instead of Favorite/Plan buttons; a non-vegetarian **own** recipe shows the buttons normally |
+| `/recipes/new` | Every validation row in the user guide; a recipe with any Category (including a non-vegetarian one) saves successfully; typing survives a failed submit |
 | `/recipes/[id]/edit` | Form pre-filled; save returns to detail; API recipe id shows the refusal state |
-| `/favorites` | Removing via the heart updates immediately; renaming a favorited own recipe shows the new name |
-| `/meal-plan` | Empty slot assigns; **filled slot Change replaces in place**; ✕ clears; picker empty state |
+| `/favorites` | Removing via the heart updates immediately; renaming a favorited own recipe shows the new name; a non-vegetarian own recipe you favorited still shows here |
+| `/meal-plan` | Empty slot assigns; **filled slot Change replaces in place**; ✕ clears; picker empty state; a non-vegetarian own recipe is assignable and shows in the picker |
 | Cross-cutting | Refresh preserves everything; dark mode; keyboard activation; Escape closes the modal |
 
 ## What is not covered, and why

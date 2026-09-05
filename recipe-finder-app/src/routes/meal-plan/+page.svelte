@@ -41,10 +41,15 @@
 					ref.source === 'user'
 						? userRecipes.get(ref.id)
 						: await lookupRecipe(ref.id).catch(() => null);
-				// A day planned before the vegetarian-only restriction (ADR-014)
-				// existed renders as empty rather than showing a non-veg recipe;
+				// The vegetarian-only restriction applies to TheMealDB content
+				// only. A day planned with a non-veg API recipe before this
+				// restriction existed renders as empty rather than showing it;
 				// the underlying assignment in the store is left untouched.
-				const showable = recipe && isVegetarianCategory(recipe.category) ? recipe : null;
+				// A day planned with your own recipe is never filtered.
+				const showable =
+					recipe && (ref.source === 'user' || isVegetarianCategory(recipe.category))
+						? recipe
+						: null;
 				return [
 					day,
 					showable
@@ -65,13 +70,12 @@
 				return lookupRecipe(ref.id).catch(() => null);
 			})
 		);
-		// Own recipes are already vegetarian-only at creation time and
-		// favorites at save time, but this still filters both — defense
-		// against any pre-existing data from before ADR-014.
+		// The vegetarian-only restriction applies to favorited API recipes
+		// only — your own recipes are always offered, regardless of diet.
 		const combined = [
 			...userRecipes.all,
 			...favoriteRecipes.filter((r): r is Recipe => r !== null)
-		].filter((r) => isVegetarianCategory(r.category));
+		].filter((r) => r.source === 'user' || isVegetarianCategory(r.category));
 		if (token !== pickerToken) return;
 		const deduped: Recipe[] = [];
 		for (const r of combined) {

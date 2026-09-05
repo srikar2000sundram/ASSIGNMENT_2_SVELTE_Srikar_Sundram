@@ -1,7 +1,7 @@
 /**
  * Thin, SSR-safe localStorage wrapper shared by every store in this folder.
  * SvelteKit renders on the server first (no `window`), so every read/write
- * must tolerate that — see docs/decisions.md ADR-005.
+ * must tolerate that.
  */
 
 export function readStorage<T>(key: string, fallback: T): T {

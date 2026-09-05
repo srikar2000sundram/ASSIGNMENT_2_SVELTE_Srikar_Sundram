@@ -15,13 +15,23 @@ didn't want to risk someone reviewing this burning through it.
 
 "Browse recipes" (the case where nothing's been searched or filtered) I
 took to mean "show something reasonable by default," not any specific set.
-Right now that default set is also filtered to vegetarian/vegan recipes,
-since that's the rule the whole app follows.
+
+Every recipe pulled from TheMealDB — browsed, searched, or filtered — is
+one it categorizes as Vegetarian or Vegan. That wasn't in the original
+brief; it came up as a follow-on request partway through, and I applied it
+only to TheMealDB content, not to the app as a whole. TheMealDB has no
+per-recipe "is this vegetarian" flag, so its own category field is the
+closest reliable signal, and I used that rather than guessing from
+ingredient names (too easy to get wrong — "coconut milk" isn't dairy).
+Recipes you add yourself are never checked against this; you can create
+whatever you want, and it'll show up in Your Recipes, favorites, and the
+meal plan the same as anything else.
 
 The main-ingredient filter doesn't use TheMealDB's full ingredient list —
 it's got like 600 entries, which would be a wall of chips nobody wants to
-scroll through. I picked a shortlist of common ones instead and checked
-each one actually returns recipes before putting it in.
+scroll through. I picked a shortlist of common ones instead (all
+vegetarian, to match the restriction above) and checked each one actually
+returns recipes before putting it in.
 
 ## No backend
 

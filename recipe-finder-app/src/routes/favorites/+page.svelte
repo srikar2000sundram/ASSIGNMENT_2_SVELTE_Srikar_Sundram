@@ -34,11 +34,15 @@
 			})
 		);
 		if (token !== resolveToken) return;
-		// Discovery and Add Recipe both already enforce vegetarian-only
-		// (ADR-014), so this only matters for a favorite saved before that
-		// restriction existed. Hidden here rather than deleted — this page
-		// doesn't own the favorites store's data, only its display.
-		resolved = recipes.filter((r): r is Recipe => r !== null && isVegetarianCategory(r.category));
+		// The vegetarian-only restriction applies to TheMealDB content only.
+		// A favorited API recipe still has to pass the check (covers one
+		// saved before this restriction existed, or reached via a direct
+		// URL before favoriting) — hidden here rather than deleted, since
+		// this page doesn't own the favorites store's data, only its
+		// display. Your own recipes are never filtered.
+		resolved = recipes.filter(
+			(r): r is Recipe => r !== null && (r.source === 'user' || isVegetarianCategory(r.category))
+		);
 		loading = false;
 	}
 

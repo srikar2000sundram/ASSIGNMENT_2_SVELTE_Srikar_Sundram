@@ -86,13 +86,19 @@ Actions in the header:
 
 | Action | Available for | Effect |
 |---|---|---|
-| **Add to favorites** / **Favorited** | every recipe | Toggles favorite state |
-| **Add to meal plan** / **Planned** | every recipe | Opens the weekday picker (see §5) |
+| **Add to favorites** / **Favorited** | every recipe you're allowed to save | Toggles favorite state |
+| **Add to meal plan** / **Planned** | every recipe you're allowed to save | Opens the weekday picker (see §5) |
 | **Edit** | your own recipes only | Goes to the edit form |
 | **Delete** | your own recipes only | Two-step inline confirm |
 
 Recipes from TheMealDB are read-only, so they show no Edit or Delete — this
 matches the brief's wording, *"edit recipes created by the user"*.
+
+The one case where Favorite/Add to meal plan don't appear at all: a
+TheMealDB recipe that isn't vegetarian or vegan, reached by typing its URL
+directly (discovery would never link to one). You'll see a short note
+instead of the buttons. This never applies to your own recipes — see
+[Recipe Management](#3-recipe-management--add-edit-delete-validate) below.
 
 A bad or removed id shows a **Recipe not found** state with a way back, not
 an error page.
@@ -108,6 +114,10 @@ an error page.
 Fields: **Title** (required), Category, Image URL, **Ingredients**
 (name + amount per row, *Add ingredient* for more, ✕ to remove a row), and
 **Instructions** (required).
+
+Category is free text — put whatever you want in it. The vegetarian-only
+restriction applies to TheMealDB discovery, not to recipes you create;
+yours can be anything.
 
 Fill in at least a title, one ingredient name, and instructions, then
 **Add recipe**. You land on the new recipe's detail page, and it now
@@ -125,16 +135,13 @@ Validation is layered, and both layers are worth seeing:
 | Enter a Title longer than 120 characters | *Title must be 120 characters or fewer.* |
 | Remove every ingredient row (or leave every name blank, amounts only) | *Add at least one ingredient.* |
 | Enter only spaces in Instructions | *Instructions are required.* |
-| Category is anything other than "Vegetarian" or "Vegan" | *This app only accepts vegetarian recipes.* |
 
 Errors render beneath the offending field, and **all failing fields report
 at once** rather than one at a time. Your typing is preserved — the form
 does not reset when validation fails.
 
-The Category check is why: this app never shows a non-vegetarian recipe
-anywhere, including ones you add yourself. It shows as a banner above the
-form rather than beneath the Category field, since it's an app-wide rule
-rather than a per-field one.
+None of this touches Category — it's never validated, so a recipe with any
+category (including a non-vegetarian one) saves without complaint.
 
 Amount-without-a-name rows are dropped silently on save; a name with no
 amount is kept.

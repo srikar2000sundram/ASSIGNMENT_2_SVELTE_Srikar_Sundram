@@ -1,6 +1,6 @@
 # Recipe Finder & Meal Planner
 
-**Discover recipes, save favorites, and plan your week — vegetarian, start to finish.**
+**Discover vegetarian and vegan recipes, save favorites, and plan your week — or add your own recipes, no restrictions.**
 
 A Svelte 5 / SvelteKit application that consumes **[`@srikar_sundram/recipe-ui-kit`](https://www.npmjs.com/package/@srikar_sundram/recipe-ui-kit)**, a reusable StencilJS web-component library, published to npm and installed as a real dependency rather than imported from source.
 
@@ -38,9 +38,11 @@ published to npm and the app consumes it exactly the way any other
 developer would: as a versioned dependency resolved from the registry,
 never as a source import.
 
-Every recipe in the app — browsed, searched, favorited, or added by
-hand — is vegetarian or vegan. That restriction is unconditional and
-applies everywhere a recipe can appear.
+Every recipe pulled from TheMealDB — browsed, searched, or filtered — is
+one it categorizes as vegetarian or vegan. That restriction is
+unconditional and there's no toggle to turn it off. It doesn't extend to
+recipes you create yourself, though — add whatever you want, and it'll
+show up in Discover, favorites, and the meal plan like anything else.
 
 | | |
 |---|---|
@@ -157,9 +159,10 @@ for each is in [`docs/assumptions.md`](docs/assumptions.md).
   no account system, no sync.
 - **Recipe management applies to your own recipes only.** API recipes are
   read-only, per the brief's wording *"edit recipes created by the user"*.
-- **The app only ever shows vegetarian or vegan recipes**, everywhere —
-  discovery, your own recipes, favorites, the meal plan. Not in the
-  original brief; added afterward, and it applies unconditionally.
+- **TheMealDB discovery only ever shows vegetarian or vegan recipes** —
+  browse, search, filters, all of it. Not in the original brief; added
+  afterward, and it applies unconditionally. It doesn't extend to recipes
+  you create yourself — those can be anything.
 - **The main-ingredient filter is a curated, vegetarian-only shortlist**,
   not TheMealDB's full ~600-item ingredient list.
 - **Deletion uses an inline two-step confirm** rather than a native

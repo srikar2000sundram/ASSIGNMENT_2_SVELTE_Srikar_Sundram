@@ -10,14 +10,13 @@
 	// Registers every recipe-ui-kit custom element once, globally, so any
 	// route can use the tags directly. Loaded from the *published* package's
 	// dist-custom-elements build (one self-registering module per component),
-	// NOT the lazy loader — see docs/decisions.md ADR-013 for why: the loader
-	// fetches a shared component bundle via a runtime-computed path that
-	// Vite's production bundler cannot statically analyze, so that file never
-	// gets copied into the build output and every custom element silently
-	// fails to render. Each import below is a literal string, which Vite can
-	// bundle correctly, and importing it is enough — Stencil's
-	// `auto-define-custom-elements` behavior calls `customElements.define()`
-	// as a side effect.
+	// NOT the lazy loader: the loader fetches a shared component bundle via
+	// a runtime-computed path that Vite's production bundler cannot
+	// statically analyze, so that file never gets copied into the build
+	// output and every custom element silently fails to render. Each import
+	// below is a literal string, which Vite can bundle correctly, and
+	// importing it is enough — Stencil's `auto-define-custom-elements`
+	// behavior calls `customElements.define()` as a side effect.
 	onMount(async () => {
 		await Promise.all([
 			import('@srikar_sundram/recipe-ui-kit/recipe-ui-card'),

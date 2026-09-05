@@ -4,14 +4,14 @@
  * TheMealDB's `list.php?i=list` returns ~600 ingredients, which is unusable as
  * a chip row — it would dwarf the rest of the page and most entries match one
  * or two recipes. So the ingredient axis offers a hand-picked shortlist of
- * common staples instead of the full list. See docs/decisions.md ADR-010.
+ * common staples instead of the full list.
  *
  * Values must match TheMealDB's ingredient spelling exactly, since they are
  * passed straight to `filter.php?i=`.
  *
- * Vegetarian-only, per ADR-014 — Chicken/Beef/Salmon were dropped and
- * Paneer/Tofu/Chickpeas added, each confirmed to both exist as a TheMealDB
- * ingredient name and return recipes in practice.
+ * Vegetarian-only, matching discovery's restriction — Chicken/Beef/Salmon
+ * were dropped and Paneer/Tofu/Chickpeas added, each confirmed to both
+ * exist as a TheMealDB ingredient name and return recipes in practice.
  */
 import type { FilterOption } from '@srikar_sundram/recipe-ui-kit';
 

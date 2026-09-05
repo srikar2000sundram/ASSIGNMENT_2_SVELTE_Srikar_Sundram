@@ -1,8 +1,8 @@
 /**
  * Route-level validation for the Recipe Management requirement
  * ("validate recipe input before saving"). Deliberately lives here, not
- * inside <recipe-ui-form>, per docs/decisions.md ADR-006 — the Stencil form
- * only collects input, this app owns the business rules. Rules mirror
+ * inside <recipe-ui-form> — the Stencil form only collects input, this
+ * app owns the business rules. Rules mirror
  * docs/data-model.md#user-recipes-store.
  */
 import type { RecipeFormValue, RecipeFormErrors } from '@srikar_sundram/recipe-ui-kit';
