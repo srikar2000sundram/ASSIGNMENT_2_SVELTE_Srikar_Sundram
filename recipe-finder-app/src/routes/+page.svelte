@@ -6,15 +6,14 @@
 		searchRecipes,
 		filterByCategory,
 		filterByArea,
-		filterByIngredient,
-		listAreas
+		filterByIngredient
 	} from '$lib/api/mealdb';
 	import { composeResults, unionAxis, type RecipeAxis } from '$lib/search/compose';
 	import { COMMON_INGREDIENTS } from '$lib/search/ingredients';
+	import { VEG_FRIENDLY_AREAS } from '$lib/search/areas';
 	import { favorites } from '$lib/stores/favorites.svelte';
 	import { userRecipes } from '$lib/stores/userRecipes.svelte';
 	import type { Recipe } from '$lib/types/recipe';
-	import type { FilterOption } from '@srikar_sundram/recipe-ui-kit';
 
 	/**
 	 * Discovery only ever shows vegetarian/vegan TheMealDB recipes — this
@@ -28,7 +27,8 @@
 	let query = $state('');
 	let selectedAreas = $state<string[]>([]);
 	let selectedIngredients = $state<string[]>([]);
-	let areaOptions = $state<FilterOption[]>([]);
+	let cuisineOpen = $state(false);
+	const areaOptions = VEG_FRIENDLY_AREAS;
 	const ingredientOptions = COMMON_INGREDIENTS;
 
 	let results = $state<Recipe[]>([]);
@@ -44,15 +44,6 @@
 
 	let activeFilterCount = $derived(selectedAreas.length + selectedIngredients.length);
 	let hasAnyConstraint = $derived(query.trim().length > 0 || activeFilterCount > 0);
-
-	async function loadFilterOptions() {
-		try {
-			const areas = await listAreas();
-			areaOptions = areas.map((a) => ({ value: a, label: a }));
-		} catch {
-			// Non-critical: search/browse still work without filter chips populated.
-		}
-	}
 
 	/** Fetch one filter axis: every selection in parallel, unioned into one list. */
 	async function fetchAxis(
@@ -108,7 +99,6 @@
 	}
 
 	onMount(() => {
-		loadFilterOptions();
 		runQuery();
 	});
 
@@ -176,10 +166,7 @@
 <div class="page-header">
 	<span class="eyebrow">Recipe Finder</span>
 	<h1>What are we cooking today?</h1>
-	<p>
-		Search thousands of vegetarian recipes, save your favorites, and plan the week ahead.
-		<span class="diet-note">Showing vegetarian &amp; vegan recipes only.</span>
-	</p>
+	<p>Search thousands of vegetarian recipes, save your favorites, and plan the week ahead.</p>
 	<div class="filters-row">
 		<recipe-ui-search-bar
 			value={query}
@@ -187,16 +174,21 @@
 			onsearchChange={handleSearchChange}
 		></recipe-ui-search-bar>
 
-		{#if areaOptions.length > 0}
-			<div class="filter-axis">
+		<details class="filter-collapsible" bind:open={cuisineOpen}>
+			<summary class="filter-collapsible__summary">
 				<span class="filter-axis__label">Cuisine</span>
+				{#if selectedAreas.length > 0}
+					<span class="filter-collapsible__count">{selectedAreas.length}</span>
+				{/if}
+			</summary>
+			<div class="filter-collapsible__body">
 				<recipe-ui-filter-chip-group
 					options={areaOptions}
 					selected={selectedAreas}
 					onfilterChange={handleAreaFilterChange}
 				></recipe-ui-filter-chip-group>
 			</div>
-		{/if}
+		</details>
 
 		<div class="filter-axis">
 			<span class="filter-axis__label">Main ingredient</span>

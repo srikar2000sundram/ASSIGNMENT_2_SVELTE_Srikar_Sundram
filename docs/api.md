@@ -24,19 +24,22 @@ I built out in advance for a need that doesn't exist yet.
 | Filter by area (cuisine) | `filter.php?a=<area>` | `/` filter chips (cuisine row) |
 | Filter by main ingredient | `filter.php?i=<ingredient>` | `/` filter chips (main-ingredient row, curated shortlist) |
 | List all categories | `list.php?c=list` | client exposes `listCategories`, not currently used by any route |
-| List all areas | `list.php?a=list` | populates the cuisine filter chip options |
+| List all areas | `list.php?a=list` | client exposes `listAreas`, not currently used by any route (see note below) |
 | Full detail lookup | `lookup.php?i=<id>` | `/recipes/[id]` |
 | Random meal | `random.php` | client exposes `randomRecipe`, not currently used by any route |
 
-`randomRecipe` is the one export nothing calls yet — it was easy to add
-alongside the others while I had the response shape fresh in my head, and
-it's the obvious next thing if a "surprise me" button ever gets added. It
-is tested regardless, so it can't rot silently.
+`randomRecipe` and `listAreas` are exports nothing calls from a route
+anymore — both were easy to add alongside the others while the response
+shape was fresh, and both are tested regardless, so neither can rot
+silently.
 
-Note that the ingredient row does **not** use `list.php?i=list` to populate
-its options, even though the cuisine row uses its equivalent: that endpoint
-returns roughly 600 ingredients, which is unusable as a chip row. The
-options are a curated constant instead — see
+Neither filter row populates its chip options from TheMealDB's own list
+endpoint. The ingredient row never did — `list.php?i=list` returns roughly
+600 ingredients, unusable as a chip row. The cuisine row used to call
+`list.php?a=list` directly, but crossing that ~195-area list against the
+always-on vegetarian/vegan restriction leaves only 24 with an actual
+recipe — so it was switched to a curated constant too, checked the same way
+the ingredient list is. Both options lists are curated constants now — see
 [assumptions.md](./assumptions.md#recipe-data).
 
 Didn't bother with: `search.php?f=<letter>` (redundant with name search for

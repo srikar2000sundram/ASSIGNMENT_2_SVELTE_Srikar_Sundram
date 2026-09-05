@@ -37,10 +37,12 @@ Two independent filter rows, each multi-select:
 
 | Row | Values | Source |
 |---|---|---|
-| **Cuisine** | Italian, Thai, Japanese, … | fetched live from TheMealDB |
+| **Cuisine** | 24 cuisines, e.g. Italian, Thai, Japanese — collapsed behind a **Cuisine** disclosure, click to expand | a curated shortlist ([assumptions.md](./assumptions.md#recipe-data)) |
 | **Main ingredient** | 12 vegetarian staples | a curated shortlist ([assumptions.md](./assumptions.md#recipe-data)) |
 
-Click chips to toggle them on and off. A tick appears on active chips.
+Click chips to toggle them on and off. A tick appears on active chips. The
+Cuisine row starts collapsed; expanding it never changes what's selected, and
+a badge on the summary shows how many cuisines are active while it's closed.
 
 ### Combining search and filters
 

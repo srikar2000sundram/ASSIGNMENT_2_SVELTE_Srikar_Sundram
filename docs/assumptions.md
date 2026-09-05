@@ -33,6 +33,16 @@ scroll through. I picked a shortlist of common ones instead (all
 vegetarian, to match the restriction above) and checked each one actually
 returns recipes before putting it in.
 
+Same problem, worse, on the Cuisine filter: TheMealDB lists about 195
+countries/nationalities, but once you cross that against "vegetarian or
+vegan only," only 24 of them actually have a matching recipe today — the
+other ~170 would be chips that always land on the empty-results state. So
+Cuisine is a checked shortlist too, not the live list, verified the same way
+as the ingredients (`lib/search/areas.ts` has the exact method: cross-
+reference every area against the combined Vegetarian+Vegan id set). It's
+also tucked behind a collapsible disclosure rather than shown outright —
+even 24 chips is a lot to have permanently open above the results.
+
 ## No backend
 
 Favorites, your own recipes, and the meal plan all live in the browser's
