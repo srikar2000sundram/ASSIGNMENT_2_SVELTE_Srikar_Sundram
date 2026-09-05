@@ -5,30 +5,39 @@
    library included, with no prop-drilling. Each component keeps its own
    var(--ruik-x, fallback) so it still looks intentional used standalone.
    ------------------------------------------------------------------- */
+/*
+ * Palette: warm parchment, aged-bronze borders, and a deep maroon primary
+ * with a candle-gold "on-primary" — a wizarding-storybook feel built
+ * entirely out of color/type tokens, no copyrighted names or artwork.
+ * `--ruik-font-display` is new (Cinzel, an engraved-stone-style serif)
+ * and is used for headings/the brand mark only; body copy stays on the
+ * existing, more readable serif/sans pair.
+ */
 :root {
-	--ruik-color-bg: #fbf7f2;
-	--ruik-color-surface: #ffffff;
-	--ruik-color-surface-alt: #f4ede2;
-	--ruik-color-border: #e8dfd0;
-	--ruik-color-text: #241c14;
-	--ruik-color-text-muted: #85786a;
-	--ruik-color-primary: #c2410c;
-	--ruik-color-primary-hover: #9a3412;
-	--ruik-color-on-primary: #fff8f2;
-	--ruik-color-accent: #4d7c58;
+	--ruik-color-bg: #f6ecd2;
+	--ruik-color-surface: #fdf8ea;
+	--ruik-color-surface-alt: #efdfb8;
+	--ruik-color-border: #c7a769;
+	--ruik-color-text: #2a1a0d;
+	--ruik-color-text-muted: #7d6a45;
+	--ruik-color-primary: #740001;
+	--ruik-color-primary-hover: #500000;
+	--ruik-color-on-primary: #f8e9b0;
+	--ruik-color-accent: #1f5c38;
 	--ruik-color-danger: #b3261e;
 	--ruik-color-danger-hover: #8c1d17;
-	--ruik-color-focus: #c2410c;
+	--ruik-color-focus: #c9971f;
 
 	--ruik-radius-sm: 8px;
 	--ruik-radius-md: 14px;
 	--ruik-radius-lg: 22px;
 	--ruik-radius-pill: 999px;
 
-	--ruik-shadow-sm: 0 1px 2px rgba(36, 24, 12, 0.06);
-	--ruik-shadow-md: 0 10px 24px -8px rgba(36, 24, 12, 0.16);
-	--ruik-shadow-lg: 0 24px 60px -16px rgba(36, 24, 12, 0.28);
+	--ruik-shadow-sm: 0 1px 2px rgba(42, 26, 13, 0.1);
+	--ruik-shadow-md: 0 10px 24px -8px rgba(42, 26, 13, 0.24);
+	--ruik-shadow-lg: 0 24px 60px -16px rgba(42, 26, 13, 0.38);
 
+	--ruik-font-display: 'Cinzel', var(--ruik-font-serif);
 	--ruik-font-serif:
 		'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, 'Times New Roman', serif;
 	--ruik-font-sans: -apple-system, 'Segoe UI', system-ui, Roboto, sans-serif;
@@ -38,23 +47,23 @@
 
 @media (prefers-color-scheme: dark) {
 	:root {
-		--ruik-color-bg: #16130e;
-		--ruik-color-surface: #201a13;
-		--ruik-color-surface-alt: #2a2318;
-		--ruik-color-border: #3b3122;
-		--ruik-color-text: #f3ece0;
-		--ruik-color-text-muted: #ab9d89;
-		--ruik-color-primary: #f0824a;
-		--ruik-color-primary-hover: #f6a06f;
-		--ruik-color-on-primary: #22120a;
-		--ruik-color-accent: #82b78e;
+		--ruik-color-bg: #120b06;
+		--ruik-color-surface: #1e140c;
+		--ruik-color-surface-alt: #2a1d11;
+		--ruik-color-border: #4a3620;
+		--ruik-color-text: #f2e6c8;
+		--ruik-color-text-muted: #b5a37c;
+		--ruik-color-primary: #b3282d;
+		--ruik-color-primary-hover: #cf3b3b;
+		--ruik-color-on-primary: #fbe9b8;
+		--ruik-color-accent: #4c9468;
 		--ruik-color-danger: #f2867e;
 		--ruik-color-danger-hover: #f6a49e;
-		--ruik-color-focus: #f0824a;
+		--ruik-color-focus: #d3a625;
 
-		--ruik-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
-		--ruik-shadow-md: 0 10px 24px -8px rgba(0, 0, 0, 0.45);
-		--ruik-shadow-lg: 0 24px 60px -16px rgba(0, 0, 0, 0.6);
+		--ruik-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+		--ruik-shadow-md: 0 10px 24px -8px rgba(0, 0, 0, 0.5);
+		--ruik-shadow-lg: 0 24px 60px -16px rgba(0, 0, 0, 0.65);
 	}
 }
 
@@ -82,7 +91,7 @@ body {
 h1,
 h2,
 h3 {
-	font-family: var(--ruik-font-serif);
+	font-family: var(--ruik-font-display);
 	font-weight: 600;
 	line-height: 1.15;
 	letter-spacing: -0.01em;
@@ -125,9 +134,10 @@ img {
 	display: inline-flex;
 	align-items: center;
 	gap: 9px;
-	font-family: var(--ruik-font-serif);
-	font-weight: 700;
+	font-family: var(--ruik-font-display);
+	font-weight: 600;
 	font-size: 18px;
+	letter-spacing: 0.02em;
 	text-decoration: none;
 	margin-right: auto;
 	color: var(--ruik-color-text);
