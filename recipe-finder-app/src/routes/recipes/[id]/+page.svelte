@@ -184,14 +184,8 @@
 
 					{#if recipe.source === 'user'}
 						<a class="btn" href={resolve('/recipes/[id]/edit', { id: recipe.id })}>Edit</a>
-						{#if confirmingDelete}
-							<button class="btn btn--danger" onclick={handleDelete}>Confirm delete</button>
-							<button class="btn" onclick={() => (confirmingDelete = false)}>Cancel</button>
-						{:else}
-							<button class="btn btn--danger" onclick={() => (confirmingDelete = true)}
-								>Delete</button
-							>
-						{/if}
+						<button class="btn btn--danger" onclick={() => (confirmingDelete = true)}>Delete</button
+						>
 					{/if}
 				</div>
 			</div>
@@ -238,6 +232,21 @@
 					{/if}
 				</button>
 			{/each}
+		</div>
+	</recipe-ui-modal-dialog>
+
+	<recipe-ui-modal-dialog
+		open={confirmingDelete}
+		heading="Delete this recipe?"
+		onclose={() => (confirmingDelete = false)}
+	>
+		<p>
+			“{recipe.title}” will be permanently removed, including from your favorites and meal plan.
+			This can't be undone.
+		</p>
+		<div slot="footer" class="modal-actions">
+			<button class="btn" onclick={() => (confirmingDelete = false)}>Cancel</button>
+			<button class="btn btn--danger" onclick={handleDelete}>Delete recipe</button>
 		</div>
 	</recipe-ui-modal-dialog>
 {/if}

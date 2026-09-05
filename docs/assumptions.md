@@ -66,9 +66,14 @@ seemed like solving a problem nobody had.
 
 ## Deleting things
 
-Delete uses a two-step inline confirm (click Delete, then Confirm) instead
-of a native `window.confirm()` popup. Just a UX preference — felt less
-jarring, and it's still a real confirmation step either way.
+Delete opens a confirmation modal (`recipe-ui-modal-dialog`, the same
+component the meal-plan day picker uses) naming the recipe and what deleting
+it touches, with **Cancel** and **Delete recipe** side by side, rather than
+a native `window.confirm()` popup. It started as an inline two-step
+button-swap (Delete → Confirm/Cancel in place), but that put the
+confirmation right next to unrelated buttons like Edit — easy to misread,
+and the row visibly jumped width when it swapped. The modal keeps it a
+deliberate, undo-free confirmation step without either problem.
 
 ## Tooling
 

@@ -128,7 +128,7 @@ ASSIGNMENT_2/
 
 | Route | Requirement served | Rendering | Stencil components used |
 |---|---|---|---|
-| `/` | Recipe Discovery | prerendered shell | `search-bar`, `filter-chip-group` ×2, `card` |
+| `/` | Recipe Discovery | prerendered shell | `search-bar`, `filter-chip-group` ×2, `card`, `modal-dialog` |
 | `/recipes/[id]` | Recipe Details | client (fallback) | `rating-badge`, `modal-dialog` |
 | `/recipes/new` | Recipe Management — add | prerendered shell | `form` |
 | `/recipes/[id]/edit` | Recipe Management — edit | client (fallback) | `form` |

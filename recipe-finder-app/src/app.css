@@ -565,6 +565,16 @@ section + section {
 	max-width: 50%;
 }
 
+/* Footer of the delete-confirmation modal — Cancel/Delete get real
+   separation from whatever else is on the page, instead of sitting inline
+   among the Favorite/Edit buttons where a destructive action is easy to
+   misclick. */
+.modal-actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: 10px;
+}
+
 .action-row {
 	display: flex;
 	gap: 8px;

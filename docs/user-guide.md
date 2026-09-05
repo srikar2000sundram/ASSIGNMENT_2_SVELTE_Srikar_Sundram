@@ -91,7 +91,7 @@ Actions in the header:
 | **Add to favorites** / **Favorited** | every recipe you're allowed to save | Toggles favorite state |
 | **Add to meal plan** / **Planned** | every recipe you're allowed to save | Opens the weekday picker (see §5) |
 | **Edit** | your own recipes only | Goes to the edit form |
-| **Delete** | your own recipes only | Two-step inline confirm |
+| **Delete** | your own recipes only | Opens a confirmation modal |
 
 Recipes from TheMealDB are read-only, so they show no Edit or Delete — this
 matches the brief's wording, *"edit recipes created by the user"*.
@@ -159,9 +159,9 @@ an API recipe (or a deleted one) shows *Can't edit this recipe*.
 
 ### Delete a recipe
 
-From the detail page or the card footer. Both are two-step: **Delete** then
-**Confirm** (**Cancel** backs out). Deliberately an inline confirm rather
-than a native `window.confirm()` dialog.
+From the detail page or the card footer, **Delete** opens a modal naming
+the recipe, with **Cancel** and **Delete recipe** side by side — a
+deliberate confirmation step, but not a native `window.confirm()` dialog.
 
 Deleting also cleans up after itself: the recipe is removed from your
 favorites **and** from any meal-plan day it occupied, in the same

@@ -145,20 +145,22 @@
 	}
 
 	let pendingDeleteId = $state<string | null>(null);
+	let pendingDeleteRecipe = $derived(
+		pendingDeleteId ? (userRecipes.all.find((r) => r.id === pendingDeleteId) ?? null) : null
+	);
 
 	function askDelete(ev: MouseEvent, id: string) {
 		ev.stopPropagation();
 		pendingDeleteId = id;
 	}
 
-	function cancelDelete(ev: MouseEvent) {
-		ev.stopPropagation();
+	function cancelDelete() {
 		pendingDeleteId = null;
 	}
 
-	function confirmDelete(ev: MouseEvent, id: string) {
-		ev.stopPropagation();
-		userRecipes.remove(id);
+	function confirmDelete() {
+		if (!pendingDeleteId) return;
+		userRecipes.remove(pendingDeleteId);
 		pendingDeleteId = null;
 	}
 </script>
@@ -233,22 +235,31 @@
 					onfavoriteToggle={favoriteToggleHandler('user')}
 				>
 					<!-- Projected into recipe-ui-card's footer slot. -->
-					{#if pendingDeleteId === recipe.id}
-						<button class="btn btn--danger btn--tiny" onclick={(e) => confirmDelete(e, recipe.id)}>
-							Confirm
-						</button>
-						<button class="btn btn--tiny" onclick={cancelDelete}>Cancel</button>
-					{:else}
-						<button class="btn btn--tiny" onclick={(e) => editUserRecipe(e, recipe.id)}>Edit</button
-						>
-						<button class="btn btn--tiny btn--danger-text" onclick={(e) => askDelete(e, recipe.id)}>
-							Delete
-						</button>
-					{/if}
+					<button class="btn btn--tiny" onclick={(e) => editUserRecipe(e, recipe.id)}>Edit</button>
+					<button class="btn btn--tiny btn--danger-text" onclick={(e) => askDelete(e, recipe.id)}>
+						Delete
+					</button>
 				</recipe-ui-card>
 			{/each}
 		</div>
 	</section>
+
+	<recipe-ui-modal-dialog
+		open={pendingDeleteRecipe !== null}
+		heading="Delete this recipe?"
+		onclose={cancelDelete}
+	>
+		{#if pendingDeleteRecipe}
+			<p>
+				“{pendingDeleteRecipe.title}” will be permanently removed, including from your favorites and
+				meal plan. This can't be undone.
+			</p>
+		{/if}
+		<div slot="footer" class="modal-actions">
+			<button class="btn" onclick={cancelDelete}>Cancel</button>
+			<button class="btn btn--danger" onclick={confirmDelete}>Delete recipe</button>
+		</div>
+	</recipe-ui-modal-dialog>
 {/if}
 
 <section>

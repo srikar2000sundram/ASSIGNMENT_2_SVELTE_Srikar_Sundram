@@ -143,8 +143,8 @@ hand against [user-guide.md](./user-guide.md):
 
 | Route | Checks |
 |---|---|
-| `/` | Search updates after the debounce; chips toggle across both rows; **Cuisine disclosure expands/collapses and its badge tracks the selection count while closed**; vegetarian-only restriction never lifts; **search + filters intersect**; Clear all resets; card footer Edit/Delete **do not navigate**; skeletons appear while loading |
-| `/recipes/[id]` | Ingredients and instructions render; favorite toggles; **Add to meal plan** picker marks *This recipe* / *Replace*; Edit/Delete appear only for own recipes; a manually-visited non-vegetarian **API** id shows the diet banner instead of Favorite/Plan buttons; a non-vegetarian **own** recipe shows the buttons normally |
+| `/` | Search updates after the debounce; chips toggle across both rows; **Cuisine disclosure expands/collapses and its badge tracks the selection count while closed**; vegetarian-only restriction never lifts; **search + filters intersect**; Clear all resets; card footer Edit/Delete **do not navigate**; **card footer Delete opens the shared confirmation modal naming that recipe**, and Cancel/Escape/backdrop close it without deleting; skeletons appear while loading |
+| `/recipes/[id]` | Ingredients and instructions render; favorite toggles; **Add to meal plan** picker marks *This recipe* / *Replace*; Edit/Delete appear only for own recipes; **Delete opens a confirmation modal naming the recipe**, Cancel/Escape/backdrop close it without deleting; a manually-visited non-vegetarian **API** id shows the diet banner instead of Favorite/Plan buttons; a non-vegetarian **own** recipe shows the buttons normally |
 | `/recipes/new` | Every validation row in the user guide; a recipe with any Category (including a non-vegetarian one) saves successfully; typing survives a failed submit |
 | `/recipes/[id]/edit` | Form pre-filled; save returns to detail; API recipe id shows the refusal state |
 | `/favorites` | Removing via the heart updates immediately; renaming a favorited own recipe shows the new name; a non-vegetarian own recipe you favorited still shows here |

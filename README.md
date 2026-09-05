@@ -163,10 +163,12 @@ for each is in [`docs/assumptions.md`](docs/assumptions.md).
   browse, search, filters, all of it. Not in the original brief; added
   afterward, and it applies unconditionally. It doesn't extend to recipes
   you create yourself — those can be anything.
-- **The main-ingredient filter is a curated, vegetarian-only shortlist**,
-  not TheMealDB's full ~600-item ingredient list.
-- **Deletion uses an inline two-step confirm** rather than a native
-  `window.confirm()` dialog.
+- **The main-ingredient and cuisine filters are curated shortlists** —
+  vegetarian-only ingredients, and only the 24 (of ~195) cuisines that
+  actually have a matching vegetarian/vegan recipe — not TheMealDB's full
+  lists.
+- **Deletion opens a confirmation modal** naming the recipe, rather than a
+  native `window.confirm()` dialog.
 - **One recipe per day** in the meal plan — no breakfast/lunch/dinner
   sub-slots.
 - **The app is a static site** — no server-side code at all, so it deploys
