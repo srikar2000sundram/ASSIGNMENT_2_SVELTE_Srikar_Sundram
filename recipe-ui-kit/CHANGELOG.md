@@ -12,6 +12,26 @@ a component's *props, events and slots* are its public API — is written out in
 
 _Nothing yet._
 
+## [0.2.1] — 2026-09-05
+
+### Fixed
+
+- **`recipe-ui-meal-slot`: recipe titles were rendering as an unreadable
+  sliver on a filled slot.** The `.slot__change-hint` ("Change") label sat
+  in the same flex row as the thumbnail and title, and even at `opacity: 0`
+  its box still consumed layout width on every render. On a ~150px-wide
+  slot, the title's `flex: 1` share shrank to almost nothing, so a real
+  recipe name wrapped one character per line and clipped after two lines —
+  visually just a thin vertical stroke. The hint is now an absolutely
+  positioned overlay on the thumbnail itself (shown on hover, like a
+  photo-edit affordance), so it never competes with the title for space.
+- **`recipe-ui-meal-slot`: filled and empty slots could render at visibly
+  different heights** in the same grid row. The host stretches to the row
+  height under CSS Grid's default `align-items: stretch`, but the inner
+  `.slot` box wasn't told to fill it, so it hugged its own (shorter,
+  single-row) content instead. `.slot` now takes `height: 100%` of its
+  host, so a filled slot's card border matches its empty neighbors.
+
 ## [0.2.0] — 2026-09-04
 
 ### Added

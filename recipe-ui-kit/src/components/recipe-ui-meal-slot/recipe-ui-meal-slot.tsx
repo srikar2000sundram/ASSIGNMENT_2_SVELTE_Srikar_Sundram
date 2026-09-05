@@ -40,13 +40,15 @@ export class RecipeUiMealSlot {
               onClick={this.handleAssign}
               aria-label={`Change meal for ${this.dayLabel ?? this.day}`}
             >
-              {this.recipe.image ? (
-                <img src={this.recipe.image} alt="" />
-              ) : (
-                <div class="slot__filled-placeholder" aria-hidden="true" />
-              )}
+              <span class="slot__thumb">
+                {this.recipe.image ? (
+                  <img src={this.recipe.image} alt="" />
+                ) : (
+                  <div class="slot__filled-placeholder" aria-hidden="true" />
+                )}
+                <span class="slot__change-hint" aria-hidden="true">Change</span>
+              </span>
               <span class="slot__title">{this.recipe.title}</span>
-              <span class="slot__change-hint" aria-hidden="true">Change</span>
             </button>
             <button type="button" class="slot__remove" onClick={this.handleRemove} aria-label="Remove meal">
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
