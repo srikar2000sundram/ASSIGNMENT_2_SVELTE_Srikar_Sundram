@@ -26,7 +26,6 @@ A Svelte 5 / SvelteKit application that consumes **[`@srikar_sundram/recipe-ui-k
 - [Project structure](#project-structure)
 - [Assumptions made](#assumptions-made)
 - [Documentation](#documentation)
-- [License](#license)
 
 ## Overview
 
@@ -188,10 +187,6 @@ Start with whichever matches what you need:
 | [RUNBOOK.md](docs/RUNBOOK.md) | Publish, push and deploy — the commands used to reach the state above |
 
 Assignment brief: [`Recipe_Finder_Meal_Planner_Assignment_v2.pdf`](Recipe_Finder_Meal_Planner_Assignment_v2.pdf).
-
-## License
-
-MIT — see [LICENSE](LICENSE).
 
 ---
 

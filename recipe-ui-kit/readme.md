@@ -131,7 +131,3 @@ Step-by-step publish instructions:
 [`../docs/RUNBOOK.md`](https://github.com/srikar2000sundram/ASSIGNMENT_2_SVELTE_Srikar_Sundram/blob/main/docs/RUNBOOK.md).
 
 Current version: **0.2.0**.
-
-## License
-
-MIT — see [LICENSE](https://github.com/srikar2000sundram/ASSIGNMENT_2_SVELTE_Srikar_Sundram/blob/main/recipe-ui-kit/LICENSE).
