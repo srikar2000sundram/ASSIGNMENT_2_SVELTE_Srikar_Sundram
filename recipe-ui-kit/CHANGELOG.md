@@ -32,6 +32,16 @@ _Nothing yet._
   single-row) content instead. `.slot` now takes `height: 100%` of its
   host, so a filled slot's card border matches its empty neighbors.
 
+### Changed
+
+- **`recipe-ui-meal-slot`: filled slots are now a proper photo-topped
+  card** — a full-width thumbnail on top, the title below, rather than a
+  small 40px thumbnail and title side by side in one row. The remove
+  control moved from that row onto the photo's top-right corner as a
+  dark circular overlay, matching the "Change" hover overlay it already
+  sits alongside. Purely a styling change: the `day`/`dayLabel`/`recipe`
+  props and `assign`/`remove` events are unchanged, so this stays a patch.
+
 ## [0.2.0] — 2026-09-04
 
 ### Added

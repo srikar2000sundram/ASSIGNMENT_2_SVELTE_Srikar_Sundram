@@ -11,14 +11,21 @@
   border: 1px solid var(--ruik-color-border, #e8dfd0);
   border-radius: var(--ruik-radius-md, 14px);
   padding: 12px;
-  min-height: 128px;
+  min-height: 190px;
   height: 100%;
   background: var(--ruik-color-surface, #ffffff);
-  transition: box-shadow 0.15s ease;
+  transition:
+    box-shadow 0.15s ease,
+    transform 0.15s ease;
 }
 
 .slot--filled {
   box-shadow: var(--ruik-shadow-sm, 0 1px 2px rgba(36, 24, 12, 0.06));
+}
+
+.slot--filled:hover {
+  box-shadow: var(--ruik-shadow-md, 0 10px 24px -8px rgba(36, 24, 12, 0.16));
+  transform: translateY(-2px);
 }
 
 .slot__day {
@@ -59,18 +66,20 @@
 .slot__filled {
   flex: 1;
   display: flex;
-  align-items: center;
-  gap: 8px;
   position: relative;
 }
 
-/* The whole recipe region on a filled slot is a button: clicking it re-opens
-   the picker for this day, which is how a planned meal gets modified in place
-   (as opposed to removed and re-added). */
+/*
+ * The whole recipe region on a filled slot is a button: clicking it re-opens
+ * the picker for this day, which is how a planned meal gets modified in place
+ * (as opposed to removed and re-added). Stacked column layout — a full-width
+ * photo on top, title below — rather than a side-by-side row, so the card
+ * reads like a real recipe tile instead of a cramped list row.
+ */
 .slot__change {
   flex: 1;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 8px;
   min-width: 0;
   padding: 4px;
@@ -105,8 +114,8 @@
 .slot__thumb {
   position: relative;
   flex-shrink: 0;
-  width: 40px;
-  height: 40px;
+  width: 100%;
+  height: 84px;
 }
 
 .slot__change-hint {
@@ -134,41 +143,49 @@
 .slot__thumb img,
 .slot__filled-placeholder {
   display: block;
-  width: 40px;
-  height: 40px;
+  width: 100%;
+  height: 100%;
   border-radius: var(--ruik-radius-sm, 8px);
   object-fit: cover;
   background: var(--ruik-color-surface-alt, #f4ede2);
 }
 
 .slot__title {
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 600;
-  flex: 1;
   min-width: 0;
   color: var(--ruik-color-text, #241c14);
   line-height: 1.3;
-  /* Long API recipe names must not push the Change/✕ controls out of the slot. */
+  /* Long API recipe names get two lines before clipping, not the whole card. */
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
+/* Overlays the photo's top-right corner rather than sitting in the flex
+   row — a dark circle reads on any photo, unlike a fixed light/dark chip. */
 .slot__remove {
+  position: absolute;
+  top: 8px;
+  right: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   flex-shrink: 0;
   border-radius: 999px;
   border: none;
-  background: var(--ruik-color-surface-alt, #f4ede2);
-  color: var(--ruik-color-text-muted, #9a938c);
+  background: color-mix(in srgb, black 45%, transparent);
+  color: #fff;
   cursor: pointer;
+  transition:
+    background 0.15s ease,
+    transform 0.15s ease;
 }
 
 .slot__remove:hover {
-  color: var(--ruik-color-danger, #b3261e);
+  background: var(--ruik-color-danger, #b3261e);
+  transform: scale(1.08);
 }
