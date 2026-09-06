@@ -11,7 +11,7 @@ A Svelte 5 / SvelteKit application that consumes **[`@srikar_sundram/recipe-ui-k
 [![Built with Stencil](https://img.shields.io/badge/Stencil-4-16161d?logo=stencil&logoColor=white)](recipe-ui-kit)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-**[Live app](https://assignment-2-svelte-srikar-sundram.vercel.app) · [npm package](https://www.npmjs.com/package/@srikar_sundram/recipe-ui-kit) · [Documentation](#documentation)**
+**[Live app](https://assignment-2-svelte-srikar-sundram.vercel.app) · [npm package](https://www.npmjs.com/package/@srikar_sundram/recipe-ui-kit) · [Demo video](https://nagarro-my.sharepoint.com/:v:/p/srikar_sundram/IQB7ouxtj89XTY87YyuvVIh_Aaw05ogADqPOoTSmrl59AXc?e=ltJwS3) · [Documentation](#documentation)**
 
 ---
 
