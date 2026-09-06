@@ -11,7 +11,7 @@
   border: 1px solid var(--ruik-color-border, #e8dfd0);
   border-radius: var(--ruik-radius-md, 14px);
   padding: 12px;
-  min-height: 190px;
+  min-height: 205px;
   height: 100%;
   background: var(--ruik-color-surface, #ffffff);
   transition:
@@ -25,15 +25,18 @@
 
 /*
  * A carousel card should feel like it's coming forward to meet you, not
- * just nudging up 2px — scale plus lift, eased the same way the modal's
- * entrance is, plus a touch of brightness on the photo itself.
- * :focus-within mirrors :hover so keyboard users (Tab onto the Change or
- * remove button) get the same feedback.
+ * just nudging up 2px — a real scale-up plus lift, eased the same way the
+ * modal's entrance is. :focus-within mirrors :hover so keyboard users (Tab
+ * onto the Change or remove button) get the same feedback. The photo, the
+ * title, and the Change tag are all designed to stay visible at once
+ * during this — see .slot__change-hint below, which used to cover the
+ * whole photo and hide it.
  */
 .slot--filled:hover,
 .slot--filled:focus-within {
+  z-index: 1;
   box-shadow: var(--ruik-shadow-lg, 0 24px 60px -16px rgba(36, 24, 12, 0.28));
-  transform: translateY(-6px) scale(1.045);
+  transform: translateY(-8px) scale(1.08);
 }
 
 .slot--filled:hover .slot__thumb img,
@@ -140,26 +143,37 @@
   height: 84px;
 }
 
+/*
+ * A slim caption bar along the bottom edge of the photo, not a scrim over
+ * the whole thing — the point of expanding on hover is to show the photo,
+ * the full title, and this control all at once, so "Change" must never
+ * hide the image it's sitting on.
+ */
 .slot__change-hint {
   position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: var(--ruik-radius-sm, 8px);
-  background: color-mix(in srgb, black 55%, transparent);
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 4px 0;
+  border-radius: 0 0 var(--ruik-radius-sm, 8px) var(--ruik-radius-sm, 8px);
+  text-align: center;
+  background: color-mix(in srgb, black 62%, transparent);
   color: #fff;
   font-size: 9px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   opacity: 0;
-  transition: opacity 0.15s ease;
+  transform: translateY(3px);
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease;
 }
 
 .slot__change:hover .slot__change-hint,
 .slot__change:focus-visible .slot__change-hint {
   opacity: 1;
+  transform: translateY(0);
 }
 
 .slot__thumb img,
@@ -179,9 +193,11 @@
   min-width: 0;
   color: var(--ruik-color-text, #241c14);
   line-height: 1.3;
-  /* Long API recipe names get two lines before clipping, not the whole card. */
+  /* Long API recipe names get three lines before clipping, not the whole
+     card — three rather than two gives real headroom for a genuinely long
+     name to read in full, especially once the card is scaled up on hover. */
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
