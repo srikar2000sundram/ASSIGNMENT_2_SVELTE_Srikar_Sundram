@@ -1,6 +1,6 @@
 {
   "name": "@srikar_sundram/recipe-ui-kit",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Reusable StencilJS web-component library (recipe card, search bar, filter chips, meal-plan slot, modal, recipe form) built for the Recipe Finder & Meal Planner SvelteKit app.",
   "main": "dist/index.cjs.js",
   "module": "dist/index.js",

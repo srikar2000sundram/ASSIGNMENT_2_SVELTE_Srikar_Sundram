@@ -128,13 +128,11 @@
 }
 
 /*
- * An earlier version put this text inline in the flex row alongside the
- * thumbnail and title. Even at opacity: 0, its box still consumed layout
- * width every render, so the title's flex: 1 share shrank to almost
- * nothing on a ~150px-wide slot — long titles rendered as a near-invisible
- * sliver, one character wrapped per line. Overlaying it on the thumbnail
- * instead means it takes no layout space at all: the title always gets
- * whatever width the thumbnail and remove button leave behind.
+ * An earlier version put the "Change" hint text inline in the flex row
+ * alongside the thumbnail and title. Even at opacity: 0, its box still
+ * consumed layout width every render, so the title's flex: 1 share shrank
+ * to almost nothing on a ~150px-wide slot — long titles rendered as a
+ * near-invisible sliver, one character wrapped per line.
  */
 .slot__thumb {
   position: relative;
@@ -144,36 +142,33 @@
 }
 
 /*
- * A slim caption bar along the bottom edge of the photo, not a scrim over
- * the whole thing — the point of expanding on hover is to show the photo,
- * the full title, and this control all at once, so "Change" must never
- * hide the image it's sitting on.
+ * A dedicated row below the title, not an overlay on the photo — an
+ * earlier version sat this on top of the thumbnail (first as a full
+ * scrim, then as a caption bar along its bottom edge), and both still
+ * covered part of the image the hover-expand was meant to show off. It
+ * takes no space at rest (height: 0) and grows in below the title on
+ * hover/focus, so the photo, the title, and this control are all fully
+ * visible at once instead of one sitting on top of another.
  */
 .slot__change-hint {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: 4px 0;
-  border-radius: 0 0 var(--ruik-radius-sm, 8px) var(--ruik-radius-sm, 8px);
-  text-align: center;
-  background: color-mix(in srgb, black 62%, transparent);
-  color: #fff;
-  font-size: 9px;
+  display: block;
+  height: 0;
+  overflow: hidden;
+  color: var(--ruik-color-primary, #c2410c);
+  font-size: 10.5px;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   opacity: 0;
-  transform: translateY(3px);
   transition:
-    opacity 0.15s ease,
-    transform 0.15s ease;
+    height 0.2s ease,
+    opacity 0.15s ease;
 }
 
 .slot__change:hover .slot__change-hint,
 .slot__change:focus-visible .slot__change-hint {
+  height: 14px;
   opacity: 1;
-  transform: translateY(0);
 }
 
 .slot__thumb img,

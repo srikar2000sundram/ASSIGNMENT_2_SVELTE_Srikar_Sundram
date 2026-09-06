@@ -12,6 +12,19 @@ a component's *props, events and slots* are its public API — is written out in
 
 _Nothing yet._
 
+## [0.2.2] — 2026-09-06
+
+### Changed
+
+- **`recipe-ui-meal-slot`: the "Change" hint is now a dedicated row below
+  the title, not something sitting on top of the photo.** 0.2.1 moved it
+  from a full-photo scrim to a caption bar along the photo's bottom
+  edge — better, but still covering part of the image. It's now a
+  collapsed-to-zero-height line under the title that expands in on
+  hover/focus, so the photo stays completely unobscured while the photo,
+  the full title, and "Change" are all visible together during the
+  hover-expand.
+
 ## [0.2.1] — 2026-09-05
 
 ### Fixed
