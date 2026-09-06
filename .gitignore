@@ -34,3 +34,7 @@ coverage
 .architectiq/
 SCREENSHOTS
 Ui_check
+
+# Demo recording — linked from the README via SharePoint instead; at
+# 200MB+ it's also well over GitHub's 100MB per-file limit regardless.
+*.mp4
